@@ -6,17 +6,36 @@ import nl.hsleiden.iprwc.DAO.UserDAO;
 import nl.hsleiden.iprwc.model.Role;
 import nl.hsleiden.iprwc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserDAO userDAO;
     @Autowired
     private RoleDAO roleDAO;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = this.userDAO.getUser(username);
+        if (user == null){
+            throw new UsernameNotFoundException("User not found");
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+    }
 
     public List<User> getUsers(){
         return this.userDAO.getUsers();
@@ -41,4 +60,6 @@ public class UserService {
     public void delete(User user){
         this.userDAO.delete(user);
     }
+
+
 }
