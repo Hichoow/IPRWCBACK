@@ -37,6 +37,7 @@ public class IprwcApplication {
 			userService.create(new User(null, "azdin070", "azdin070@gmail.com", "1234", new ArrayList<>()));
 
 			userService.addRoleToUser("hichoow", "ROLE_SUPER_ADMIN");
+			userService.addRoleToUser("hichoow", "ROLE_USER");
 			userService.addRoleToUser("praque", "ROLE_USER");
 			userService.addRoleToUser("khalid1999", "ROLE_ADMIN");
 			userService.addRoleToUser("azdin070", "ROLE_USER");
