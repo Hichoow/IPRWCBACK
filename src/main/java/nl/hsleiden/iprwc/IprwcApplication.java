@@ -26,15 +26,15 @@ public class IprwcApplication {
 	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
-			userService.createRole(new Role(null, "ROLE_USER"));
-			userService.createRole(new Role(null, "ROLE_MANAGER"));
-			userService.createRole(new Role(null, "ROLE_ADMIN"));
-			userService.createRole(new Role(null, "ROLE_SUPER_ADMIN"));
+			userService.createRole(new Role("ROLE_USER"));
+			userService.createRole(new Role("ROLE_MANAGER"));
+			userService.createRole(new Role("ROLE_ADMIN"));
+			userService.createRole(new Role("ROLE_SUPER_ADMIN"));
 
-			userService.create(new User(null, "hichoow", "hichoow@gmail.com", "1234", new ArrayList<>()));
-			userService.create(new User(null, "praque", "praque@gmail.com", "1234", new ArrayList<>()));
-			userService.create(new User(null, "khalid1999", "khalid1999@gmail.com", "1234", new ArrayList<>()));
-			userService.create(new User(null, "azdin070", "azdin070@gmail.com", "1234", new ArrayList<>()));
+			userService.create(new User("hichoow", "hichoow@gmail.com", "1234"));
+			userService.create(new User("praque", "praque@gmail.com", "1234"));
+			userService.create(new User("khalid1999", "khalid1999@gmail.com", "1234"));
+			userService.create(new User("azdin070", "azdin070@gmail.com", "1234"));
 
 			userService.addRoleToUser("hichoow", "ROLE_SUPER_ADMIN");
 			userService.addRoleToUser("hichoow", "ROLE_USER");
