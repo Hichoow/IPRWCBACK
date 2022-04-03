@@ -38,8 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/role/**").hasAnyAuthority("ROLE_SUPER_ADMIN")
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+
+//                .and()
+//                .authorizeRequests().antMatchers("/api/role/**").hasAnyAuthority("ROLE_SUPER_ADMIN")
                 .anyRequest().authenticated();
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
