@@ -7,6 +7,7 @@ import nl.hsleiden.iprwc.security.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,10 +39,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/login").permitAll().and()
+                .authorizeRequests().antMatchers("/api/auth/register").permitAll().and()
+                .authorizeRequests().antMatchers(HttpMethod.GET, "/api/products").permitAll()
 
-//                .and()
-//                .authorizeRequests().antMatchers("/api/role/**").hasAnyAuthority("ROLE_SUPER_ADMIN")
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/api/orders").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

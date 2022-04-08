@@ -18,7 +18,7 @@ public class OrderProduct {
 
     }
 
-    public OrderProduct(Order order, Product product, Integer Quantity){
+    public OrderProduct(Order order, Product product, Integer quantity){
         pk = new OrderProductPK();
         pk.setOrder(order);
         pk.setProduct(product);

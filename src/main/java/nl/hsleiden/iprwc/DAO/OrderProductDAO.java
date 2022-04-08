@@ -10,10 +10,6 @@ public class OrderProductDAO {
     @Autowired
     private OrderProductRepository orderProductRepository;
 
-    public void OrderProductServiceImpl(OrderProductRepository orderProductRepository) {
-        this.orderProductRepository = orderProductRepository;
-    }
-
     public OrderProduct create(OrderProduct orderProduct) {
         return this.orderProductRepository.save(orderProduct);
     }

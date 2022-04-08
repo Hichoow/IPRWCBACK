@@ -15,19 +15,18 @@ public class Product {
     private Double price;
     @NotBlank
     private String img;
-    @NotBlank
-    private String description;
+
 
 
     public Product() {
 
     }
 
-    public Product(String name, Double price, String img, String desc) {
+    public Product(String name, Double price, String img) {
         this.name = name;
         this.price = price;
         this.img = img;
-        this.description = desc;
+
     }
 
     public Long getId() {
@@ -62,11 +61,4 @@ public class Product {
         this.img = img;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String desc) {
-        this.description = desc;
-    }
 }
